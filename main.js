@@ -25,14 +25,18 @@ const DIMENSION_CANVAS = {
 resizeCanvas()
 
 const DIMENSION_BLOCK = 50
+const LENGTH_BLOCK = 50
 const DIMENSION_LINES_COLUMNS = 0.5
-const DIMENSION_MAP_WIDTH = DIMENSION_BLOCK * 50
-const DIMENSION_MAP_HEIGHT = DIMENSION_BLOCK * 50
+const DIMENSION_MAP_WIDTH = DIMENSION_BLOCK * LENGTH_BLOCK
+const DIMENSION_MAP_HEIGHT = DIMENSION_BLOCK * LENGTH_BLOCK
 
-const DIMENSION_PLAYER = 50
-const SPEED_PLAYER = 10
+const DIMENSION_PLAYER = 25
+const SPEED_PLAYER = 5
 
-let player, map, camera
+const MINIMAP_DIMENSION = .18
+const MINIMAP_RECUO = 20
+
+let player, map, minimap, camera
 let animateFrame
 
 function setup() {
@@ -78,6 +82,11 @@ function initial() {
     let dimensionMap = { width: DIMENSION_MAP_WIDTH, height: DIMENSION_MAP_HEIGHT }
     map = new MapM(dimensionMap)
 
+    // MiniMap
+    let dimensionMiniMap = { width: () => { return DIMENSION_WINDOW.width() * MINIMAP_DIMENSION }, height: () => { return DIMENSION_WINDOW.width() * MINIMAP_DIMENSION } }
+    let positionMiniMap = { x: () => { return MINIMAP_RECUO }, y: () => { return (DIMENSION_CANVAS.height() - dimensionMiniMap.height()) - MINIMAP_RECUO } }
+    minimap = new MiniMap(positionMiniMap, dimensionMiniMap)
+
     // Player
     let dimensionPlayer = { width: DIMENSION_PLAYER, height: DIMENSION_PLAYER }
     let positionPlayer = { x: (DIMENSION_MAP_WIDTH - dimensionPlayer.width) / 2, y: (DIMENSION_MAP_HEIGHT - dimensionPlayer.height) / 2 }
@@ -103,6 +112,7 @@ function draw() {
 
     map.draw()
     player.draw()
+    minimap.draw()
 }
 
 function update() {
