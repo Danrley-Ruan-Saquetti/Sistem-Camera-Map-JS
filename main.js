@@ -33,7 +33,7 @@ const DIMENSION_MAP_HEIGHT = DIMENSION_BLOCK * LENGTH_BLOCK
 const DIMENSION_PLAYER = 25
 const SPEED_PLAYER = 5
 
-const MINIMAP_DIMENSION = .18
+const MINIMAP_DIMENSION = .15
 const MINIMAP_RECUO = 20
 
 let player, map, minimap, camera
