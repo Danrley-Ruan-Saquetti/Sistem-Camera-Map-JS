@@ -24,22 +24,27 @@ const DIMENSION_CANVAS = {
 
 resizeCanvas()
 
+// Config Map
 const DIMENSION_BLOCK = 50
-const LENGTH_BLOCK = 50
-const DIMENSION_LINES_COLUMNS = 0.5
+const LENGTH_BLOCK = 100
+const DIMENSION_LINES_COLUMNS = .5
 const DIMENSION_MAP_WIDTH = DIMENSION_BLOCK * LENGTH_BLOCK
 const DIMENSION_MAP_HEIGHT = DIMENSION_BLOCK * LENGTH_BLOCK
 
-const DIMENSION_PLAYER = 25
-const SPEED_PLAYER = 5
+// Config Player
+const DIMENSION_PLAYER = DIMENSION_BLOCK
+const SPEED_PLAYER = 10
 
-const MINIMAP_DIMENSION_PERC = .15
+// Config MiniMap
+const MINIMAP_DIMENSION_PERCENTAGE = .15
 const MINIMAP_RECUO = 20
 
 let player, map, minimap, camera
 let animateFrame
 
 function setup() {
+
+    // Move Player
     addEventListener("keydown", (ev) => {
         switch (ev.key) {
             case "w":
@@ -74,26 +79,26 @@ function setup() {
 }
 
 function initial() {
-    // Map
+    // Instance Map
     let dimensionMap = { width: DIMENSION_MAP_WIDTH, height: DIMENSION_MAP_HEIGHT }
     map = new MapM(dimensionMap)
 
-    // MiniMap
+    // Instance MiniMap
     let dimensionMiniMap = {
-        width: () => { return (DIMENSION_WINDOW.width() * MINIMAP_DIMENSION_PERC) + (DIMENSION_WINDOW.height() * MINIMAP_DIMENSION_PERC) / 2 },
-        height: () => { return (DIMENSION_WINDOW.width() * MINIMAP_DIMENSION_PERC) + (DIMENSION_WINDOW.height() * MINIMAP_DIMENSION_PERC) / 2 }
+        width: () => { return (DIMENSION_WINDOW.width() * MINIMAP_DIMENSION_PERCENTAGE) + (DIMENSION_WINDOW.height() * MINIMAP_DIMENSION_PERCENTAGE) / 2 },
+        height: () => { return (DIMENSION_WINDOW.width() * MINIMAP_DIMENSION_PERCENTAGE) + (DIMENSION_WINDOW.height() * MINIMAP_DIMENSION_PERCENTAGE) / 2 }
     }
     let positionMiniMap = { x: () => { return MINIMAP_RECUO }, y: () => { return (DIMENSION_CANVAS.height() - dimensionMiniMap.height()) - MINIMAP_RECUO } }
     minimap = new MiniMap(positionMiniMap, dimensionMiniMap)
 
-    // Player
+    // Instance Player
     let dimensionPlayer = { width: DIMENSION_PLAYER, height: DIMENSION_PLAYER }
     let positionPlayer = { x: (DIMENSION_MAP_WIDTH - dimensionPlayer.width) / 2, y: (DIMENSION_MAP_HEIGHT - dimensionPlayer.height) / 2 }
     let colorPlayer = "#ff0000"
     let speedPlayer = { x: 0, y: 0 }
     player = new Player(positionPlayer, dimensionPlayer, colorPlayer, speedPlayer)
 
-    // Camera
+    // Instance Camera
     let dimensionCamera = { width: () => { return DIMENSION_CANVAS.width() }, height: () => { return DIMENSION_CANVAS.height() } }
 
     camera = new Camera(dimensionCamera)
@@ -107,6 +112,7 @@ function resizeCanvas() {
 }
 
 function draw() {
+    // Draw Objects
     ctx.clearRect(0, 0, DIMENSION_CANVAS.width(), DIMENSION_CANVAS.height())
 
     map.draw()
@@ -115,6 +121,7 @@ function draw() {
 }
 
 function update() {
+    // Update states
     player.update()
 }
 
