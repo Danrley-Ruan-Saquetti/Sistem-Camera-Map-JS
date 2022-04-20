@@ -33,7 +33,7 @@ const DIMENSION_MAP_HEIGHT = DIMENSION_BLOCK * LENGTH_BLOCK
 const DIMENSION_PLAYER = 25
 const SPEED_PLAYER = 5
 
-const MINIMAP_DIMENSION = .15
+const MINIMAP_DIMENSION_PERC = .15
 const MINIMAP_RECUO = 20
 
 let player, map, minimap, camera
@@ -60,14 +60,10 @@ function setup() {
     addEventListener("keyup", (ev) => {
         switch (ev.key) {
             case "w":
-                player.speed.y = 0
-                break
             case "s":
                 player.speed.y = 0
                 break
             case "d":
-                player.speed.x = 0
-                break
             case "a":
                 player.speed.x = 0
                 break
@@ -83,7 +79,10 @@ function initial() {
     map = new MapM(dimensionMap)
 
     // MiniMap
-    let dimensionMiniMap = { width: () => { return DIMENSION_WINDOW.width() * MINIMAP_DIMENSION }, height: () => { return DIMENSION_WINDOW.width() * MINIMAP_DIMENSION } }
+    let dimensionMiniMap = {
+        width: () => { return (DIMENSION_WINDOW.width() * MINIMAP_DIMENSION_PERC) + (DIMENSION_WINDOW.height() * MINIMAP_DIMENSION_PERC) / 2 },
+        height: () => { return (DIMENSION_WINDOW.width() * MINIMAP_DIMENSION_PERC) + (DIMENSION_WINDOW.height() * MINIMAP_DIMENSION_PERC) / 2 }
+    }
     let positionMiniMap = { x: () => { return MINIMAP_RECUO }, y: () => { return (DIMENSION_CANVAS.height() - dimensionMiniMap.height()) - MINIMAP_RECUO } }
     minimap = new MiniMap(positionMiniMap, dimensionMiniMap)
 

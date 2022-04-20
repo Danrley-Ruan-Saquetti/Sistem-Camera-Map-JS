@@ -13,6 +13,7 @@ class Player {
         let y = this.position.y - camera.getYMaster()
         let w = this.dimension.width
         let h = this.dimension.height
+
         ctx.fillRect(x, y, w, h)
     }
 

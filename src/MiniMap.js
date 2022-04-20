@@ -10,6 +10,9 @@ class MiniMap {
         let w = ((wObj * this.dimension.width()) / DIMENSION_MAP_WIDTH)
         let h = ((hObj * this.dimension.height()) / DIMENSION_MAP_HEIGHT)
 
+        if (w > this.dimension.width()) w = this.dimension.width()
+        if (h > this.dimension.height()) h = this.dimension.height()
+
         if (x < this.position.x()) x = this.position.x()
         else if (x + w > this.position.x() + this.dimension.width()) x = this.dimension.width() - w
         if (y < this.position.y()) y = this.position.y()

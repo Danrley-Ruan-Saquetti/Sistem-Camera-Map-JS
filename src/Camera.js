@@ -9,6 +9,7 @@ class Camera {
 
         return { x, y }
     }
+
     getXMaster() {
         let xM = (player.position.x + (player.dimension.width / 2)) - (this.dimension.width() / 2)
         if (xM < 0) xM = 0
